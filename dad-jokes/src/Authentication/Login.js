@@ -23,16 +23,21 @@ class Login extends Component {
 
   submitHandler = event => {
     event.preventDefault();
-    axios.post( `https://dad-jokes2019.herokuapp.com/oauth/token`, this.state.user)
+    axios.post( `https://dad-jokes2019.herokuapp.com/users/user/{id}`, this.state.user)
       .then(res => {
-        if (res.status === 200 && res.data) {
-          localStorage.setItem('token', res.data.token)
-          localStorage.setItem('username', res.data.username)
-          this.props.history.push('/content')
-        } else {
-          throw new Error();
-        }
+        // if (res.status === 200 && res.data) {
+        //   localStorage.setItem('token', res.data.token)
+        //   localStorage.setItem('username', res.data.username)
+        //   this.props.history.push('/content')
+        // } else {
+        //   throw new Error();
+        // }
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('username', res.data.username)
+        this.props.history.push('/content')
+        console.log(res.data.token);
       })
+      
       .catch(err => {
         this.setState({
           message: 'Authentication failed',

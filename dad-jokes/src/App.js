@@ -3,7 +3,9 @@ import "./App.css";
 import { NavLink, Switch, Route, withRouter } from "react-router-dom";
 import { Redirect } from "react-router";
 import Register from "./Authentication/Register";
+// import Content from "./components/Content";
 import Login from "./Authentication/Login";
+import Profile from "./Authentication/Profile";
 
 
 class App extends Component {
@@ -45,7 +47,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/profile" render={props => <Profile {...props} />} />
-            <Route path="/content" component={Content} />
+            {/* <Route path="/content" component={Content} /> */}
             <Route exact path="/" render={() => <Redirect to="/content" />} />
           </Switch>
         </section>
