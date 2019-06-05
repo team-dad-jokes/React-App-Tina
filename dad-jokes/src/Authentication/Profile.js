@@ -19,7 +19,7 @@ export default class Profile extends Component {
   }
 
   getProfile = () => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const profile = localStorage.getItem("username");
     const options = {
       headers: {
@@ -30,7 +30,7 @@ export default class Profile extends Component {
     if (token) {
       axios
         .get(
-          `https://dad-jokes2019.herokuapp.com/oauth/token/${profile}`,
+          `https://dad-jokes2019.herokuapp.com/users/user/{userId}`,
           options
         
         )
@@ -66,7 +66,7 @@ export default class Profile extends Component {
   }
 
   logout = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("token");
     this.props.history.push("/Login");
   };
 
@@ -85,7 +85,7 @@ export default class Profile extends Component {
   };
 
   toggleCard = info => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const changes = { title: info.title, category: info.category, link: info.link, seen: !info.seen, public: info.public };
     const id = info.id;
     console.log(info)
@@ -120,7 +120,7 @@ export default class Profile extends Component {
   };
 
   addNewArticle = info => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const options = {
       headers: {
         Authorization: token
@@ -140,7 +140,7 @@ export default class Profile extends Component {
   };
 
   render() {
-    if(!localStorage.getItem('jwt')) {this.props.history.push('/login')}
+    if(!localStorage.getItem('token')) {this.props.history.push('/login')}
     return (
       <div className="content-container">
         <TabList

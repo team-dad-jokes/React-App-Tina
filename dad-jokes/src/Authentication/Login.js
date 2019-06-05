@@ -21,24 +21,28 @@ class Login extends Component {
     this.setState({ user: { ...this.state.user, [name]: value } })
   }
 
-  submitHandler = event => {
-    event.preventDefault();
-    axios.post(`https://dad-jokes2019.herokuapp.com/users/user/{id}`, this.state.user)
+  submitHandler = (event) => {
+    axios.post('https://dad-jokes2019.herokuapp.com/oauth/token',
+     `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`,
+    {
+      headers: {
+
+        // btoa is converting our client id/client secret into base64
+        Authorization: `Basic ${btoa('dadjoke-client:lambda-secret')}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+
+      }
+
+    })
       .then(res => {
-        if (res.status === 200 && res.data) {
-          localStorage.setItem('jwt', res.data.token)
-          localStorage.setItem('username', res.data.username)
-          this.props.history.push('/content')
-        } else {
-          throw new Error();
-        }
+        localStorage.setItem('token', res.data.access_token);
+        console.log(res.data.access_token);
+
       })
-      .catch(err => {
-        this.setState({
-          message: 'Authentication failed',
-          user: { ...initialUser }
-        })
-      })
+      .catch(err => console.dir(err));
+
+    event.preventDefault();
+
   }
 
   render() {
