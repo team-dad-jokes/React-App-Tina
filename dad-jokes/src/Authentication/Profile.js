@@ -20,7 +20,7 @@ export default class Profile extends Component {
 
   getProfile = () => {
     const token = localStorage.getItem("token");
-    const profile = localStorage.getItem("username");
+    const userId = localStorage.getItem("username");
     const options = {
       headers: {
         Authorization: token
@@ -30,7 +30,7 @@ export default class Profile extends Component {
     if (token) {
       axios
         .get(
-          `https://dad-jokes2019.herokuapp.com/users/user/{userId}`,
+          `https://dad-jokes2019.herokuapp.com/users/user/${userId}`,
           options
         
         )
@@ -119,7 +119,7 @@ export default class Profile extends Component {
     }
   };
 
-  addNewArticle = info => {
+  addNewJoke = info => {
     const token = localStorage.getItem("token");
     const options = {
       headers: {
@@ -149,7 +149,7 @@ export default class Profile extends Component {
           selectTabHandler={this.changeSelected}
         />
         <CardList cards={this.filterCards()} toggleCard={this.toggleCard} />
-        <CardForm addNewArticle={this.addNewArticle} />
+        <CardForm addNewJoke={this.addNewJoke} />
       </div>
     );
   }

@@ -1,0 +1,1 @@
+export const tabData = ['all', 'adults', 'animals', 'politics', 'historic', 'work', 'random'];

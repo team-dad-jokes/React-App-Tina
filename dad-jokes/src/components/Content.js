@@ -20,7 +20,7 @@ export default class Content extends Component {
   }
 
   getPost = () => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const options = {
       headers: {
         Authorization: token
@@ -30,7 +30,7 @@ export default class Content extends Component {
     if (token) {
       axios
         .get(
-          "https://modern-day-researcher-backend.herokuapp.com/api/post",
+          /* " URL " ,*/
           options
         )
         .then(res => {
@@ -65,7 +65,7 @@ export default class Content extends Component {
   }
 
   logout = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("token");
     this.props.history.push("/Login");
   };
 
@@ -84,7 +84,7 @@ export default class Content extends Component {
   };
 
   toggleCard = info => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const changes = { title: info.title, category: info.category, link: info.link, seen: !info.seen, public: info.public };
     const id = info.id;
     console.log(info)
@@ -97,7 +97,7 @@ export default class Content extends Component {
     if (token) {
       axios
         .put(
-          `https://modern-day-researcher-backend.herokuapp.com/api/post/update/${id}`,
+          /* ` URL ` */
           changes,
           options
         )
@@ -118,8 +118,8 @@ export default class Content extends Component {
     }
   };
 
-  addNewArticle = info => {
-    const token = localStorage.getItem("jwt");
+  addNewJoke = info => {
+    const token = localStorage.getItem("token");
     const options = {
       headers: {
         Authorization: token
@@ -129,7 +129,7 @@ export default class Content extends Component {
     if (token) {
       axios
         .post(
-          "https://modern-day-researcher-backend.herokuapp.com/api/post/create",
+          /* " URL " ,*/
           info,
           options
         )
@@ -139,7 +139,7 @@ export default class Content extends Component {
   };
 
   render() {
-    if(!localStorage.getItem('jwt')) {this.props.history.push('/login')}
+    if(!localStorage.getItem('token')) {this.props.history.push('/login')}
     return (
       <div className="content-container">
         <TabList
@@ -148,7 +148,7 @@ export default class Content extends Component {
           selectTabHandler={this.changeSelected}
         />
         <CardList cards={this.filterCards()} toggleCard={this.toggleCard} />
-        <CardForm addNewArticle={this.addNewArticle} />
+        <CardForm addNewJoke={this.addNewJoke} />
       </div>
     );
   }

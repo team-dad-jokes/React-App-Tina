@@ -21,28 +21,24 @@ class Login extends Component {
     this.setState({ user: { ...this.state.user, [name]: value } })
   }
 
-  submitHandler = (event) => {
-    axios.post('https://dad-jokes2019.herokuapp.com/oauth/token',
-     `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`,
-    {
-      headers: {
-
-        // btoa is converting our client id/client secret into base64
-        Authorization: `Basic ${btoa('dadjoke-client:lambda-secret')}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-
-      }
-
-    })
-      .then(res => {
-        localStorage.setItem('token', res.data.access_token);
-        console.log(res.data.access_token);
-
-      })
-      .catch(err => console.dir(err));
-
+  submitHandler = event => {
     event.preventDefault();
-
+    axios.post( `https://dad-jokes2019.herokuapp.com/oauth/token`, this.state.user)
+      .then(res => {
+        if (res.status === 200 && res.data) {
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('username', res.data.username)
+          this.props.history.push('/content')
+        } else {
+          throw new Error();
+        }
+      })
+      .catch(err => {
+        this.setState({
+          message: 'Authentication failed',
+          user: { ...initialUser }
+        })
+      })
   }
 
   render() {
@@ -67,15 +63,6 @@ class Login extends Component {
             name="password"
             value={this.state.user.password}
             onChange={this.inputHandler}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={this.state.user.email}
-            onChange={this.inputHandler}
-            placeholder="(optional)"
           />
           <button className="login-btn" type="submit">Submit</button>
         </form>
