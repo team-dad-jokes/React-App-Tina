@@ -20,7 +20,7 @@ export default class Profile extends Component {
 
   getProfile = () => {
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("username");
+    const profile = localStorage.getItem("username");
     const options = {
       headers: {
         Authorization: token
@@ -30,9 +30,8 @@ export default class Profile extends Component {
     if (token) {
       axios
         .get(
-          `https://dad-jokes2019.herokuapp.com/users/user/${userId}`,
+          `https://dad-jokes2019.herokuapp.com/users/user/${profile}`,
           options
-        
         )
         .then(res => {
           if (res.status === 201 && res.data) {
@@ -43,7 +42,7 @@ export default class Profile extends Component {
           }
         })
         .catch(err => {
-           this.props.history.push("/login");
+          //  this.props.history.push("/login");
         });
     }
   };

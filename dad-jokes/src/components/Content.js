@@ -5,7 +5,7 @@ import axios from "axios";
 import TabList from "./TabList";
 import CardList from "./CardList";
 import CardForm from "./CardForm";
-import { tabData } from "../../data";
+import { tabData } from "../data";
 
 export default class Content extends Component {
   constructor() {
