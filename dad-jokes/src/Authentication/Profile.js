@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-// import TabList from "../components/TabList";
-// import CardList from "../components/CardList";
-// import CardForm from "../components/CardForm";
-// import { tabData } from "../data";
+import TabList from "../components/TabList";
+import CardList from "../components/CardList";
+import CardForm from "../components/CardForm";
+import { tabData } from "../data";
 
 export default class Profile extends Component {
   constructor() {
@@ -19,7 +19,7 @@ export default class Profile extends Component {
   }
 
   getProfile = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("jwt");
     const profile = localStorage.getItem("username");
     const options = {
       headers: {
@@ -30,14 +30,14 @@ export default class Profile extends Component {
     if (token) {
       axios
         .get(
-          `https://dad-jokes2019.herokuapp.com/oauth/token${profile}`,
+          `https://dad-jokes2019.herokuapp.com/oauth/token/${profile}`,
           options
         
         )
         .then(res => {
           if (res.status === 201 && res.data) {
             console.log("Help!", res.data);
-            this.setState({ loggedIn: true, /* tabs: tabData, */ cards: res.data });
+            this.setState({ loggedIn: true, tabs: tabData, cards: res.data });
           } else {
             throw new Error();
           }
@@ -66,7 +66,7 @@ export default class Profile extends Component {
   }
 
   logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
     this.props.history.push("/Login");
   };
 
@@ -85,7 +85,7 @@ export default class Profile extends Component {
   };
 
   toggleCard = info => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("jwt");
     const changes = { title: info.title, category: info.category, link: info.link, seen: !info.seen, public: info.public };
     const id = info.id;
     console.log(info)
@@ -98,7 +98,7 @@ export default class Profile extends Component {
     if (token) {
       axios
         .put(
-          `https://dad-jokes2019.herokuapp.com/oauth/token/${id}`,
+          `https://dad-jokes2019.herokuapp.com/users/user/{id}`,
           changes,
           options
         )
@@ -120,7 +120,7 @@ export default class Profile extends Component {
   };
 
   addNewArticle = info => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("jwt");
     const options = {
       headers: {
         Authorization: token
@@ -130,7 +130,7 @@ export default class Profile extends Component {
     if (token) {
       axios
         .post(
-          "https://dad-jokes2019.herokuapp.com/oauth/token",
+          "https://dad-jokes2019.herokuapp.com/users/user",
           info,
           options
         )
@@ -140,16 +140,16 @@ export default class Profile extends Component {
   };
 
   render() {
-    if(!localStorage.getItem('token')) {this.props.history.push('/login')}
+    if(!localStorage.getItem('jwt')) {this.props.history.push('/login')}
     return (
       <div className="content-container">
-        {/* <TabList
+        <TabList
           tabs={this.state.tabs}
           selectedTab={this.state.selected}
           selectTabHandler={this.changeSelected}
         />
         <CardList cards={this.filterCards()} toggleCard={this.toggleCard} />
-        <CardForm addNewArticle={this.addNewArticle} /> */}
+        <CardForm addNewArticle={this.addNewArticle} />
       </div>
     );
   }

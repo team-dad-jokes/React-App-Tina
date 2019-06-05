@@ -33,7 +33,7 @@ class Register extends Component {
         // } else {
         //   throw new Error();
         // }
-        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('jwt', res.data.token)
         this.props.history.push('/content')
       })
       .catch(err => {
@@ -66,15 +66,6 @@ class Register extends Component {
             name='password'
             value={this.state.user.password}
             onChange={this.inputHandler}
-          />
-            <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={this.state.user.email}
-            onChange={this.inputHandler}
-            placeholder="(optional)"
           />
           <button className="login-btn" type='submit'>Submit</button>
         </form>
