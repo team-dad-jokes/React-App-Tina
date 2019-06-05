@@ -20,28 +20,28 @@ class Register extends Component {
     this.setState({ user: { ...this.state.user, [name]: value } })
   }
 
-  submitHandler = (event) => {
+   submitHandler = (event) => {
+    axios.post('https://dad-jokes2019.herokuapp.com/oauth/token',
+     `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`,
+    {
+      headers: {
+
+        // btoa is converting our client id/client secret into base64
+        Authorization: `Basic ${btoa('dadjoke-client:lambda-secret')}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+
+      }
+
+    })
+      .then(res => {
+        localStorage.setItem('token', res.data.access_token);
+        console.log(res.data.access_token);
+
+      })
+      .catch(err => console.dir(err));
+
     event.preventDefault();
-    axios.post(`https://dad-jokes2019.herokuapp.com/users/user`, this.state.user)
-      .then((res) => {
-        // if (res.status === 201) {
-        //   this.setState({
-        //     message: 'Registration Successful',
-        //     user: { ...initialUser },
-        //   })
-        //   this.props.history.push('/')
-        // } else {
-        //   throw new Error();
-        // }
-        localStorage.setItem('jwt', res.data.token)
-        this.props.history.push('/content')
-      })
-      .catch(err => {
-        this.setState({
-          message: 'Registration failed',
-          user: { ...initialUser }
-        })
-      })
+
   }
 
   render() {
