@@ -22,7 +22,8 @@ class Login extends Component {
   }
 
   submitHandler = (event) => {
-    axios.post('https://dad-jokes2019.herokuapp.com/oauth/token', `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`, {
+    axios.post('https://dad-jokes2019.herokuapp.com/oauth/token', 
+    `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`, {
 
       headers: {
 
@@ -31,13 +32,10 @@ class Login extends Component {
         'Content-Type': 'application/x-www-form-urlencoded'
 
       }
-
     })
       .then(res => {
         localStorage.setItem('token', res.data.access_token);
         console.log(res.data.access_token);
-        
-
       })
       .catch(err => console.dir(err));
 
