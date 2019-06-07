@@ -20,31 +20,31 @@ export default class Content extends Component {
   }
 
   getPost = () => {
-    const token = localStorage.getItem("token");
+    //const token = localStorage.getItem("token");
     const options = {
       headers: {
-        Authorization: token
+        'Content-Type': 'application/json'
       }
-    };
-
-    if (token) {
-      axios
-        .get(
+    }
+      //if (token) {
+        axios.get("https://dad-jokes2019.herokuapp.com/randomJoke",{
           /* " URL " ,*/
           options
-        )
+        })
         .then(res => {
-          if (res.status === 200 && res.data) {
-            console.log(res.data);
-            this.setState({ loggedIn: true, tabs: tabData, cards: res.data });
+          console.log(res.data.joke)
+          if (res.status === 200) {
+            this.setState({ loggedIn: true, tabs: tabData, cards: res.data.joke })
           } else {
-            throw new Error();
+            throw new Error()
           }
         })
         .catch(err => {
-          this.props.history.push("/login");
+          //this.props.history.push("/login");
+          console.log(err);
         });
-    }
+    //}
+
   };
 
   componentDidMount() {
@@ -85,7 +85,7 @@ export default class Content extends Component {
 
   toggleCard = info => {
     const token = localStorage.getItem("token");
-    const changes = { title: info.title, category: info.category, link: info.link, seen: !info.seen, public: info.public };
+    const changes = { title: info.title, category: info.category, joke: info.joke, seen: !info.seen, public: info.public };
     const id = info.id;
     console.log(info)
     const options = {

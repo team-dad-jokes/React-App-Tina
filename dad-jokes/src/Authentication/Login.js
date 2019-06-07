@@ -36,6 +36,7 @@ class Login extends Component {
       .then(res => {
         localStorage.setItem('token', res.data.access_token);
         console.log(res.data.access_token);
+        this.props.history.push("/profile");
       })
       .catch(err => console.dir(err));
 

@@ -5,9 +5,8 @@ class CardForm extends Component {
     super(props);
     this.state = {
       title: "",
-      category: "news",
-      link: "",
-      imgURL: "",
+      category: "public",
+      joke: "",
       username: localStorage.getItem("username"),
       seen: false,
       public: true
@@ -22,9 +21,8 @@ class CardForm extends Component {
     this.setState({
       ...this.state,
       title: "",
-      category: "news",
-      link: "",
-      imgURL: "",
+      category: "public",
+      joke: "",
       username: localStorage.getItem("username"),
       seen: false
 
@@ -50,20 +48,17 @@ class CardForm extends Component {
             />
             <input
               onChange={this.handleInputChange}
-              placeholder="Link"
-              value={this.state.link}
-              name="link"
+              placeholder="Joke"
+              value={this.state.joke}
+              name="joke"
               className="input-box"
             />
             <div className="category-select">
               <label className="category-label">Category:</label>
               <select name="category" onChange={this.handleInputChange}>
-                <option value="adults">Adults</option>
-                <option value="animals">Animals</option>
-                <option value="politics">Politics</option>
-                <option value="historic">Historic</option>
-                <option value="work">Work</option>
-                <option value="random">Random</option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+                
               </select>
             </div>
           </div>

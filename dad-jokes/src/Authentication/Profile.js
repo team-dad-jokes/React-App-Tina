@@ -20,7 +20,7 @@ export default class Profile extends Component {
 
   getProfile = () => {
     const token = localStorage.getItem("token");
-    const profile = localStorage.getItem("username");
+    const profile = localStorage.getItem(1);
     const options = {
       headers: {
         Authorization: token
