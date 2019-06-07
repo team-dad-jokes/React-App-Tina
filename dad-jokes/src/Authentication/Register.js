@@ -21,7 +21,9 @@ class Register extends Component {
   }
 
   submitHandler = (event) => {
-      axios.post('https://dad-jokes2019.herokuapp.com/oauth/token', `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`, {
+    //actual endpoint https://dad-jokes2019.herokuapp.com/users/user (not sure how to fromat error code: 415)
+      axios.post('https://dad-jokes2019.herokuapp.com/oauth/token', 
+      `grant_type=password&username=${this.state.user.username}&password=${this.state.user.password}`, {
   
         headers: {
   
@@ -35,7 +37,7 @@ class Register extends Component {
         .then(res => {
           localStorage.setItem('token', res.data.access_token);
           console.log(res.data.access_token);
-  
+          this.props.history.push('/profile');
         })
         .catch(err => console.dir(err));
   

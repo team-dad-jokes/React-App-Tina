@@ -27,17 +27,21 @@ export default class Content extends Component {
       }
     }
       //if (token) {
+        
         axios.get("https://dad-jokes2019.herokuapp.com/randomJoke",{
           /* " URL " ,*/
           options
         })
         .then(res => {
           console.log(res.data.joke)
-          if (res.status === 200) {
-            this.setState({ loggedIn: true, tabs: tabData, cards: res.data.joke })
-          } else {
-            throw new Error()
-          }
+          this.setState({
+            cards: res.data.joke
+          })
+          // if (res.status === 200) {
+          //   this.setState({ loggedIn: true, tabs: tabData, cards: res.data.joke })
+          // } else {
+          //   throw new Error()
+          // }
         })
         .catch(err => {
           //this.props.history.push("/login");
@@ -85,7 +89,7 @@ export default class Content extends Component {
 
   toggleCard = info => {
     const token = localStorage.getItem("token");
-    const changes = { title: info.title, category: info.category, joke: info.joke, seen: !info.seen, public: info.public };
+    const changes = { category: info.category, joke: info.joke, seen: !info.seen, public: info.public };
     const id = info.id;
     console.log(info)
     const options = {
@@ -147,7 +151,7 @@ export default class Content extends Component {
           selectedTab={this.state.selected}
           selectTabHandler={this.changeSelected}
         />
-        <CardList cards={this.filterCards()} toggleCard={this.toggleCard} />
+        <CardList card={this.state.cards} toggleCard={this.toggleCard} />
         <CardForm addNewJoke={this.addNewJoke} />
       </div>
     );

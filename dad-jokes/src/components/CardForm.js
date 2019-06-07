@@ -1,32 +1,36 @@
 import React, { Component } from "react";
+import Card from "./Card";
 
 class CardForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      category: "public",
+     
+      //category: "public",
       joke: "",
-      username: localStorage.getItem("username"),
-      seen: false,
-      public: true
+      // username: localStorage.getItem("username"),
+      // seen: false,
+      // public: true
      
     };
   }
 
   addJoke = event => {
     event.preventDefault();
-    this.props.addNewJoke(this.state);
+    //this.props.addNewJoke(this.state);
 
     this.setState({
-      ...this.state,
-      title: "",
-      category: "public",
-      joke: "",
-      username: localStorage.getItem("username"),
-      seen: false
+    ...this.state,
+      
+    //   category: "public",
+    joke: "",
+    //   username: localStorage.getItem("username"),
+    //   seen: false
 
     });
+    return(
+    <Card/>
+    )
   };
 
   handleInputChange = e => {
@@ -39,13 +43,6 @@ class CardForm extends Component {
         <h2>Add Joke</h2>
         <form onSubmit={this.addJoke}>
           <div className="input">
-            <input
-              onChange={this.handleInputChange}
-              placeholder="Title"
-              value={this.state.title}
-              name="title"
-              className="input-box"
-            />
             <input
               onChange={this.handleInputChange}
               placeholder="Joke"
@@ -64,7 +61,7 @@ class CardForm extends Component {
           </div>
          
 
-          <button className="save-joke-btn"type="submit">Save</button>
+          <button onClick={this.addJoke} className="save-joke-btn"type="submit">Save</button>
         </form>
       </div>
     );
