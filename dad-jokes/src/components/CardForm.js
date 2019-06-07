@@ -22,16 +22,16 @@ class CardForm extends Component {
     this.setState({
     ...this.state,
       
-    //   category: "public",
+      category: "public",
     joke: "",
-    //   username: localStorage.getItem("username"),
-    //   seen: false
-
+    
     });
     return(
     <Card/>
     )
+    
   };
+  
 
   handleInputChange = e => {
     this.setState({ ...this.state, [e.target.name]: e.target.value });

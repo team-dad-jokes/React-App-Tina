@@ -21,13 +21,11 @@ class App extends Component {
               Login
             </NavLink>
           </div>
-          <div className="logo">
-          {/* <NavLink to="/content">
-            <img src={logo} alt={logo} />
-          </NavLink> */}
-        </div>
           <NavLink className="top-nav-tab main" to="/content">
             Home
+          </NavLink>
+          <NavLink className="top-nav-tab main" to="/profile">
+            Profile
           </NavLink>
           <NavLink
               className="top-nav-tab main"

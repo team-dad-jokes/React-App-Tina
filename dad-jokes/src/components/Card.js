@@ -7,9 +7,13 @@ const Card = props => {
         <div className="img-container">
         <h2>{props.card}</h2>
         </div>
-        {/* <h3>{props.card.title}</h3> */}
+        <button type= "button" onClick= { refreshPage }>New Joke!</button>
     </div>
   );
 };
+
+function refreshPage(){ 
+  window.location.reload(); 
+}
 
 export default Card;
