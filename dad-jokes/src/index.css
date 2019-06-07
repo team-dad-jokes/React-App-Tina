@@ -14,6 +14,7 @@ body {
   background-color: #272727;
   color: black;
   padding: 3px 15px;
+  margin-bottom: 30px;
 }
 
 .sign-in {
@@ -27,6 +28,8 @@ body {
   background-color: #009999;
 }
 
+
+
 .top-nav-tab {
   margin: 10px 8px;
   text-decoration: none;
@@ -37,6 +40,7 @@ body {
   padding: 3px 15px;
   border: 2px solid #272727;
   border-radius: 20px;
+  margin-top: 200px;
 }
 
 @media (max-width: 600px) {
@@ -134,7 +138,6 @@ body {
   flex-direction: column;
   background-color: white;
   box-shadow: 0 5px 10px lightgray;
-  width: 20%;
   height: auto;
   margin-bottom: 16px;
   padding: 24px;
@@ -204,13 +207,11 @@ h2 {
 
 .card h3 {
   height: 100px;
-  border: 5px solid red;
   color: black;
 }
 
 .card p {
   font-size: 12px;
-  border: 5px solid red;
 }
 .card a {
   text-decoration: none;
@@ -224,13 +225,18 @@ h2 {
 .card button {
   text-decoration: none;
   background-color: lightgray;
-  width: 75px;
+  width: 100px;
+  height: 40px;
   border: 0;
   margin: auto;
 }
 
 .card.seen {
   background-color: #272727;
+}
+
+.img-container h2{
+  margin: 10px 10px 30px 10px;
 }
 
 .logo {

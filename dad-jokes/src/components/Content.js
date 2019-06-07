@@ -2,17 +2,14 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import TabList from "./TabList";
 import CardList from "./CardList";
 import CardForm from "./CardForm";
-import { tabData } from "../data";
+
 
 export default class Content extends Component {
   constructor() {
     super();
     this.state = {
-      selected: "all",
-      tabs: [],
       cards: [],
       newPost: [],
       username: ""
@@ -38,7 +35,7 @@ export default class Content extends Component {
             cards: res.data.joke
           })
           // if (res.status === 200) {
-          //   this.setState({ loggedIn: true, tabs: tabData, cards: res.data.joke })
+            this.setState({ loggedIn: true, cards: res.data.joke })
           // } else {
           //   throw new Error()
           // }
@@ -73,54 +70,54 @@ export default class Content extends Component {
     this.props.history.push("/Login");
   };
 
-  changeSelected = tab => {
-    this.setState({ selected: tab });
-  };
+  // changeSelected = tab => {
+  //   this.setState({ selected: tab });
+  // };
 
-  filterCards = () => {
-    if (this.state.selected === "all") {
-      return this.state.cards;
-    } else {
-      return this.state.cards.filter(
-        card => card.category === this.state.selected
-      );
-    }
-  };
+  // filterCards = () => {
+  //   if (this.state.selected === "all") {
+  //     return this.state.cards;
+  //   } else {
+  //     return this.state.cards.filter(
+  //       card => card.category === this.state.selected
+  //     );
+  //   }
+  // };
 
-  toggleCard = info => {
-    const token = localStorage.getItem("token");
-    const changes = { category: info.category, joke: info.joke, seen: !info.seen, public: info.public };
-    const id = info.id;
-    console.log(info)
-    const options = {
-      headers: {
-        Authorization: token
-      }
-    };
+  // toggleCard = info => {
+  //   const token = localStorage.getItem("token");
+  //   const changes = { category: info.category, joke: info.joke, seen: !info.seen, public: info.public };
+  //   const id = info.id;
+  //   console.log(info)
+  //   const options = {
+  //     headers: {
+  //       Authorization: token
+  //     }
+  //   };
 
-    if (token) {
-      axios
-        .put(
-          /* ` URL ` */
-          changes,
-          options
-        )
-        .then(res =>
-          this.setState({
-            cards: this.state.cards.map(card => {
-              if (card.id === id) {
-                return {
-                  ...card,
-                  seen: !card.seen
-                };
-              }
-              return card;
-            })
-          })
-        )
-        .catch(err => console.log(err));
-    }
-  };
+  //   if (token) {
+  //     axios
+  //       .put(
+  //         /* ` URL ` */
+  //         changes,
+  //         options
+  //       )
+  //       .then(res =>
+  //         this.setState({
+  //           cards: this.state.cards.map(card => {
+  //             if (card.id === id) {
+  //               return {
+  //                 ...card,
+  //                 seen: !card.seen
+  //               };
+  //             }
+  //             return card;
+  //           })
+  //         })
+  //       )
+  //       .catch(err => console.log(err));
+  //   }
+  // };
 
   addNewJoke = info => {
     const token = localStorage.getItem("token");
@@ -146,11 +143,11 @@ export default class Content extends Component {
     if(!localStorage.getItem('token')) {this.props.history.push('/login')}
     return (
       <div className="content-container">
-        <TabList
+        {/* <TabList
           tabs={this.state.tabs}
           selectedTab={this.state.selected}
           selectTabHandler={this.changeSelected}
-        />
+        /> */}
         <CardList card={this.state.cards} toggleCard={this.toggleCard} />
         <CardForm addNewJoke={this.addNewJoke} />
       </div>

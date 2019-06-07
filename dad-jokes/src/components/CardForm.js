@@ -6,11 +6,11 @@ class CardForm extends Component {
     super(props);
     this.state = {
      
-      //category: "public",
+      category: "public",
       joke: "",
-      // username: localStorage.getItem("username"),
-      // seen: false,
-      // public: true
+      username: localStorage.getItem("username"),
+      seen: false,
+      public: true
      
     };
   }
@@ -23,7 +23,7 @@ class CardForm extends Component {
     ...this.state,
       
       category: "public",
-    joke: "",
+      joke: ""
     
     });
     return(
@@ -55,12 +55,9 @@ class CardForm extends Component {
               <select name="category" onChange={this.handleInputChange}>
                 <option value="public">Public</option>
                 <option value="private">Private</option>
-                
               </select>
             </div>
           </div>
-         
-
           <button onClick={this.addJoke} className="save-joke-btn"type="submit">Save</button>
         </form>
       </div>
